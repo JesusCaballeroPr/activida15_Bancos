@@ -2,8 +2,9 @@ package Models
 
 import java.time.LocalDate
 import CuentaBancaria
+import Interface.Liquidable
 
- class CuentaAhorro : CuentaBancaria {
+class CuentaAhorro : CuentaBancaria,Liquidable {
 
     protected var interes: Double = 4.0
 
@@ -13,7 +14,7 @@ import CuentaBancaria
         println("Cuenta de ahorros creada con nombre $nombreCuenta")
     }
 
-     fun liquidarCuenta() {
+     override fun liquidar() {
         val fechaActual = LocalDate.now()
         val fechaLimite = fechaActual.minusYears(1)
         if (fechaApertura.isAfter(fechaLimite)) {
@@ -26,7 +27,7 @@ import CuentaBancaria
         println("La cuenta queda a 0 después de retirar ${this.saldo}")
     }
     override fun toString(): String {
-        return "La cuenta de ahorros tiene los siguientes datos: fue creada\n" +
+        return "La cuenta de ahorros tiene los siguientes datos: fue creada" +
                 "en  ${this.fecha},tiene ${saldo}€, con unos intereses aplicados" +
                 " del ${this.interes}%"
     }

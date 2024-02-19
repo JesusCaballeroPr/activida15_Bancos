@@ -1,8 +1,9 @@
 package Models
 
 import CuentaBancaria
+import Interface.Liquidable
 
-class CuentaCorriente : CuentaBancaria {
+class CuentaCorriente : CuentaBancaria,Liquidable {
 
     protected var comisionMantenimiento:Double=20.0
     protected var dineroAretirar:Double=0.0
@@ -25,6 +26,12 @@ class CuentaCorriente : CuentaBancaria {
         return saldoAnterior - this.saldo
     }
 
+    override fun liquidar(){
+        println("Se procederá a liquidar completamente la cuenta...")
+        var dineroPrevio=this.saldo
+        this.saldo-=this.saldo
+        println("Se cuenta $nombreCuenta se ha liquidado con un efectivo total de: $dineroPrevio")
+    }
     fun cobrarComision() {
         println("Se le cobrará una comisión del 10% por descubierto!")
         this.saldo += saldo* 0.1

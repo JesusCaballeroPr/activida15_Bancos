@@ -1,6 +1,7 @@
+import Interface.Liquidable
 import java.time.LocalDate
 
-abstract class CuentaBancaria {
+abstract class CuentaBancaria:Liquidable {
     protected var fecha: LocalDate = LocalDate.now()
     protected var nombreCuenta: String = ""
     protected var saldo: Double = 0.0
