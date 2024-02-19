@@ -75,28 +75,49 @@
                 "Marque 1 si es cuenta corriente\n" +
                 "Marque 2 si es cuenta de ahorros")
         var opcion= readln().toInt()
-        when (opcion){
-            1-> for (i in cuentasBancarias){
-                if (i is CuentaCorriente){
-                    println("Ingrese el saldo que quiera depositar:")
-                    var saldo= readln().toDouble()
-                    i.ingresar(saldo)
-                    return
-                }else{
-                    println("No se encontró ninguna cuenta corriente")
+        when (opcion) {
+            1 -> {
+                println("Presione el número de la cuenta a la que quiera hacer el ingreso")
+                for ((i: Int, cuenta: Liquidable) in cuentasBancarias.withIndex()) {
+                    if (cuenta is CuentaCorriente) {
+                        println("${i + 1}. ${cuenta.gettNombreCuenta()}")
+                    }
                 }
+                var opcion2: Int = readln().toInt()
+                if (opcion2 in 0..cuentasBancarias.size) {
+                    var cuentaSeleccionada: CuentaCorriente = cuentasBancarias[opcion2 - 1] as CuentaCorriente
+                    if (cuentaSeleccionada != null) {
+                        println("Cuánto saldo desea ingesar?")
+                        var saldo = readln().toDouble()
+                        cuentaSeleccionada.ingresar(saldo)
+                    }
+                } else {
+                    println("Opción no válida")
+                }
+
             }
-            2-> for (i in cuentasBancarias){
-                if (i is CuentaAhorro){
-                    println("Ingrese el saldo a ingresar:")
-                    var saldo= readln().toDouble()
-                    i.ingresar(saldo)
-                }else{
-                    println("No se encontró ninguna cuenta de ahorros")
+
+            2 ->{
+                println("Presione el número de la cuenta en la que quiere hacer el ingreso: ")
+                for ((i: Int, cuenta: Liquidable) in cuentasBancarias.withIndex()) {
+                    if (cuenta is CuentaAhorro) {
+                        println("${i + 1}. ${cuenta.gettNombreCuenta()}")
+                    }
+                }
+                var opcion2:Int= readln().toInt()
+                if (opcion2 in 0..cuentasBancarias.size){
+                    var cuentaElegida:CuentaAhorro= cuentasBancarias[opcion2-1] as CuentaAhorro
+                    if (cuentaElegida !=null){
+                        println("Cuánto saldo quiere ingresar?")
+                        var saldo = readln().toDouble()
+                        cuentaElegida.ingresar(saldo)
+                    }
+                } else {
+                        println("No se encontró ninguna cuenta de ahorros")
+                    }
                 }
             }
         }
-    }
     fun consultarSaldo() {
         println(
             "Diga de que cuenta desea consultar el saldo, por favor\n" +
