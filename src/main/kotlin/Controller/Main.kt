@@ -222,7 +222,7 @@
                 }
             }
             else -> {
-                println("Opción inválid¡a.")
+                println("Opción inválida.")
             }
         }
     }
